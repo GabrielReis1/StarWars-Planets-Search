@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { FilterProvider } from '../context/FilterContext';
 import Table from './Table';
 
 function FetchData() {
@@ -18,7 +19,11 @@ function FetchData() {
     fetchData();
   }, []);
 
-  return <Table data={ planets } />;
+  return (
+    <FilterProvider>
+      <Table data={ planets } />
+    </FilterProvider>
+  );
 }
 
 export default FetchData;

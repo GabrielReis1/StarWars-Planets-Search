@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { FilterContext } from '../context/FilterContext';
+import FilterInput from './FilterInput';
 import '../styles/table.css';
 
 function Table({ data }) {
@@ -7,7 +9,12 @@ function Table({ data }) {
     ? Object.keys(data[0]).map((header) => <th key={ header }>{header}</th>)
     : null;
 
-  const rows = data.map((planet, index) => (
+  const { filter } = useContext(FilterContext);
+
+  const filteredData = data.filter((planet) => planet.name.toLowerCase()
+    .includes(filter.toLowerCase()));
+
+  const rows = filteredData.map((planet, index) => (
     <tr key={ index }>
       {Object.values(planet).map((value, i) => (
         <td key={ i }>{value}</td>
@@ -16,13 +23,16 @@ function Table({ data }) {
   ));
 
   return (
-    <div className="table-container">
-      <table>
-        <thead>
-          <tr>{headers}</tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </table>
+    <div>
+      <FilterInput />
+      <div className="table-container">
+        <table>
+          <thead>
+            <tr>{headers}</tr>
+          </thead>
+          <tbody>{rows}</tbody>
+        </table>
+      </div>
     </div>
   );
 }
