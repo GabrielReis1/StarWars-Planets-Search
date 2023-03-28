@@ -1,9 +1,13 @@
 import React from 'react';
+import FetchData from './components/FetchData';
 import './App.css';
 
 function App() {
   return (
-    <span>Iniciando Projeto!</span>
+    <div>
+      <h1>StarWars</h1>
+      <FetchData />
+    </div>
   );
 }
 

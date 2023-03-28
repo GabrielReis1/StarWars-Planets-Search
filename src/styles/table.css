@@ -1,0 +1,41 @@
+h1 {
+  color: yellow;
+  font-size: 100px;
+  text-align: center;
+  text-shadow: 5px 5px 2px black;
+}
+
+.table-container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+  width: 100%;
+}
+
+table {
+  border-collapse: collapse;
+  font-family: Arial , sans-serif;
+  table-layout: fixed;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  max-width: 150px;
+  overflow-wrap: break-word;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+  font-weight: 700;
+}
+
+tr:nth-child( even ) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #ddd;
+}
