@@ -1,8 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { FilterContext } from '../context/FilterContext';
-import FilterInput from './FilterInput';
-import NumericFilter from './NumericFilter';
 import '../styles/table.css';
 
 function Table({ data }) {
@@ -21,8 +19,6 @@ function Table({ data }) {
 
   return (
     <div>
-      <FilterInput />
-      <NumericFilter />
       <div className="table-container">
         <table>
           <thead>
