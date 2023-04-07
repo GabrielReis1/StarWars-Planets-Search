@@ -15,40 +15,9 @@ function Table({ data }) {
   const filteredData = data.filter((planet) => planet.name.toLowerCase()
     .includes(filter.toLowerCase()));
 
-  const getRowsWithNumericFilter = () => filteredData.filter((planet) => {
-    const { column } = numericFilter;
-    const { comparison } = numericFilter;
-    const value = Number(numericFilter.value);
-
-    if (!column || !comparison || Number.isNaN(value)) {
-      return true;
-    }
-
-    switch (comparison) {
-    case 'maior que':
-      return Number(planet[column]) > value;
-    case 'menor que':
-      return Number(planet[column]) < value;
-    case 'igual a':
-      return Number(planet[column]) === value;
-    default:
-      return true;
-    }
-  }).map((planet, index) => (
-    <tr key={ index }>
-      {Object.values(planet).map((value, i) => (
-        <td key={ i }>{value}</td>
-      ))}
-    </tr>
-  ));
-
-  const getRowsWithoutNumericFilter = () => filteredData.map((planet, index) => (
-    <tr key={ index }>
-      {Object.values(planet).map((value, i) => (
-        <td key={ i }>{value}</td>
-      ))}
-    </tr>
-  ));
+  const {
+    getRowsWithNumericFilter,
+    getRowsWithoutNumericFilter } = useContext(FilterContext);
 
   return (
     <div>
@@ -61,8 +30,8 @@ function Table({ data }) {
           </thead>
           <tbody>
             {numericFilter.column && numericFilter.comparison && numericFilter.value
-              ? getRowsWithNumericFilter()
-              : getRowsWithoutNumericFilter()}
+              ? getRowsWithNumericFilter(filteredData)
+              : getRowsWithoutNumericFilter(filteredData)}
           </tbody>
         </table>
       </div>

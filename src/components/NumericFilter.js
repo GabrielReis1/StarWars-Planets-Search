@@ -2,11 +2,10 @@ import React, { useContext, useState } from 'react';
 import { FilterContext } from '../context/FilterContext';
 
 function NumericFilter() {
-  const [column, setColumn] = useState('population');
-  const [comparison, setComparison] = useState('maior que');
-  const [value, setValue] = useState(0);
-
-  const { setNumericFilter } = useContext(FilterContext);
+  const { numericFilter, setNumericFilter } = useContext(FilterContext);
+  const [column, setColumn] = useState(numericFilter.column);
+  const [comparison, setComparison] = useState(numericFilter.comparison);
+  const [value, setValue] = useState(numericFilter.value);
 
   const handleFilter = () => {
     setNumericFilter({ column, comparison, value: Number(value) || value === 0 });
