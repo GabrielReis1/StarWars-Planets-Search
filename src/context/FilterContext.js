@@ -5,9 +5,14 @@ export const FilterContext = createContext();
 
 export function FilterProvider({ children }) {
   const [filter, setFilter] = useState('');
+  const [numericFilter, setNumericFilter] = useState(
+    { column: 'population', comparison: 'maior que', value: 0 },
+  );
 
   return (
-    <FilterContext.Provider value={ { filter, setFilter } }>
+    <FilterContext.Provider
+      value={ { filter, setFilter, numericFilter, setNumericFilter } }
+    >
       {children}
     </FilterContext.Provider>
   );
