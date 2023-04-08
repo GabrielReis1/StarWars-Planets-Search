@@ -1,8 +1,10 @@
 import React, { createContext, useState } from 'react';
 import PropTypes from 'prop-types';
 
-export const FilterContext = createContext();
-
+export const FilterContext = createContext({
+  namefilter: '',
+  numericFilters: [],
+});
 export function FilterProvider({ children }) {
   const [namefilter, setNameFilter] = useState('');
   const [numericFilters, setNumericFilters] = useState([]);

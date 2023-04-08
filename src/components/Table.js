@@ -22,7 +22,7 @@ function Table({ data }) {
       <div className="table-container">
         <table>
           <thead>
-            <tr>{headers}</tr>
+            {headers ? <tr>{headers}</tr> : null}
           </thead>
           <tbody>
             {numericFilters.length !== 0

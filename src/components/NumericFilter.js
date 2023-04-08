@@ -26,8 +26,6 @@ function NumericFilter() {
     setNumericFilters(newFilters);
   };
 
-  console.log('numericFilters', numericFilters);
-
   return (
     <div>
       <select
