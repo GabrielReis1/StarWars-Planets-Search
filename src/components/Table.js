@@ -8,14 +8,14 @@ function Table({ data }) {
     ? Object.keys(data[0]).map((header) => <th key={ header }>{header}</th>)
     : null;
 
-  const { filter, numericFilter } = useContext(FilterContext);
+  const { namefilter, numericFilters } = useContext(FilterContext);
 
   const filteredData = data.filter((planet) => planet.name.toLowerCase()
-    .includes(filter.toLowerCase()));
+    .includes(namefilter.toLowerCase()));
 
   const {
     getRowsWithNumericFilter,
-    getRowsWithoutNumericFilter } = useContext(FilterContext);
+    getRows } = useContext(FilterContext);
 
   return (
     <div>
@@ -25,9 +25,9 @@ function Table({ data }) {
             <tr>{headers}</tr>
           </thead>
           <tbody>
-            {numericFilter.column && numericFilter.comparison && numericFilter.value
+            {numericFilters.length !== 0
               ? getRowsWithNumericFilter(filteredData)
-              : getRowsWithoutNumericFilter(filteredData)}
+              : getRows(filteredData)}
           </tbody>
         </table>
       </div>

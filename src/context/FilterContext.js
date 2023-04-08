@@ -4,39 +4,46 @@ import PropTypes from 'prop-types';
 export const FilterContext = createContext();
 
 export function FilterProvider({ children }) {
-  const [filter, setFilter] = useState('');
-  const [numericFilter, setNumericFilter] = useState(
-    { column: 'population', comparison: 'maior que', value: 0 },
-  );
+  const [namefilter, setNameFilter] = useState('');
+  const [numericFilters, setNumericFilters] = useState([]);
 
-  const getRowsWithNumericFilter = (filteredData) => filteredData.filter((planet) => {
-    const { column } = numericFilter;
-    const { comparison } = numericFilter;
-    const value = Number(numericFilter.value);
-
-    if (!column || !comparison || Number.isNaN(value)) {
-      return true;
+  const getRowsWithNumericFilter = (filteredData) => {
+    console.log('getRowsWithNumericFilter called');
+    if (filteredData.length === 0 || numericFilters.length === 0) {
+      return [];
     }
 
-    switch (comparison) {
-    case 'maior que':
-      return Number(planet[column]) > value;
-    case 'menor que':
-      return Number(planet[column]) < value;
-    case 'igual a':
-      return Number(planet[column]) === value;
-    default:
-      return true;
-    }
-  }).map((planet, index) => (
-    <tr key={ index }>
-      {Object.values(planet).map((value, i) => (
-        <td key={ i }>{value}</td>
-      ))}
-    </tr>
-  ));
+    return filteredData
+      .filter((planet) => numericFilters.every((filter) => {
+        const { column, comparison, value } = filter;
+        if (!column || !comparison || Number.isNaN(Number(value))) {
+          return true;
+        }
 
-  const getRowsWithoutNumericFilter = (filteredData) => filteredData
+        const planetValue = Number(planet[column]);
+
+        switch (comparison) {
+        case 'maior que':
+          return planetValue > Number(value);
+        case 'menor que':
+          return planetValue < Number(value);
+        case 'igual a':
+          return planetValue === Number(value);
+        default:
+          return true;
+        }
+      }))
+      .filter(Boolean)
+      .map((planet, index) => (
+        <tr key={ index }>
+          {Object.values(planet).map((value, i) => (
+            <td key={ i }>{value}</td>
+          ))}
+        </tr>
+      ));
+  };
+
+  const getRows = (filteredData) => filteredData
     .map((planet, index) => (
       <tr key={ index }>
         {Object.values(planet).map((value, i) => (
@@ -46,12 +53,13 @@ export function FilterProvider({ children }) {
     ));
 
   const values = {
-    filter,
-    setFilter,
-    numericFilter,
-    setNumericFilter,
+    getRows,
+    namefilter,
+    setNameFilter,
+    numericFilters,
+    setNumericFilters,
     getRowsWithNumericFilter,
-    getRowsWithoutNumericFilter };
+  };
 
   return (
     <FilterContext.Provider
