@@ -71,16 +71,25 @@ function NumericFilter() {
       <button data-testid="button-filter" onClick={ handleSetNumericFilter }>
         Filtrar
       </button>
+
+      <button data-testid="button-remove-filters" onClick={ () => setNumericFilters([]) }>
+        Remover Filtros
+      </button>
+
       {numericFilters && numericFilters.map((numericFilter, index) => (
         <div key={ index }>
-          <span>
+          <span data-testid="filter">
             {numericFilter.column}
             {' '}
             {numericFilter.comparison}
             {' '}
             {numericFilter.value}
+            <button
+              onClick={ () => handleRemoveFilter(index) }
+            >
+              X
+            </button>
           </span>
-          <button onClick={ () => handleRemoveFilter(index) }>X</button>
         </div>
       ))}
 
