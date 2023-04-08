@@ -7,9 +7,22 @@ function NumericFilter() {
     { column: 'population', comparison: 'maior que', value: 0 },
   );
 
+  const columnsOptions = [
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ].filter(
+    (column) => !numericFilters.some((filtered) => filtered.column === column),
+  );
+
   const handleSetNumericFilter = () => {
     if (filter.column !== '' && filter.comparison !== '' && filter.value !== 0) {
-      setNumericFilters([...numericFilters, filter]);
+      const columns = new Set(numericFilters.map((filtered) => filtered.column));
+      if (!columns.has(filter.column)) {
+        setNumericFilters([...numericFilters, filter]);
+      }
       setFilter({ column: 'population', comparison: 'maior que', value: 0 });
     } else {
       setNumericFilters([...numericFilters, {
@@ -33,11 +46,9 @@ function NumericFilter() {
         value={ filter.column }
         onChange={ (e) => setFilter({ ...filter, column: e.target.value }) }
       >
-        <option value="population" selected>population</option>
-        <option value="orbital_period">orbital_period</option>
-        <option value="diameter">diameter</option>
-        <option value="rotation_period">rotation_period</option>
-        <option value="surface_water">surface_water</option>
+        {columnsOptions.map((option) => (
+          <option value={ option } key={ option }>{option}</option>
+        ))}
       </select>
 
       <select
