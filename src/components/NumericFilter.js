@@ -56,7 +56,7 @@ function NumericFilter() {
         value={ filter.comparison }
         onChange={ (e) => setFilter({ ...filter, comparison: e.target.value }) }
       >
-        <option value="maior que" selected>maior que</option>
+        <option value="maior que">maior que</option>
         <option value="menor que">menor que</option>
         <option value="igual a">igual a</option>
       </select>

@@ -27,7 +27,7 @@ function App() {
       <h1>STARWARS</h1>
       <FilterInput />
       <NumericFilter />
-      <Table data={ planets } />
+      <Table data={ planets } data-testid="table" />
     </FilterProvider>
   );
 }

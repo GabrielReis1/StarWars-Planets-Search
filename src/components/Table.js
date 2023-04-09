@@ -20,7 +20,7 @@ function Table({ data }) {
   return (
     <div>
       <div className="table-container">
-        <table>
+        <table data-testid="table">
           <thead>
             {headers ? <tr>{headers}</tr> : null}
           </thead>
